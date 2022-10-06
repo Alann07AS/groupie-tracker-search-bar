@@ -1,0 +1,19 @@
+{{ template "base" .}}
+
+{{ define "content" }}
+
+<main id="artist">
+    {{range .}}
+    <div class="artists">
+        <form id="{{.Id}}" action="artist" method="GET">
+            <h3>{{.ArtistName}}</h3>     
+            <img src="{{.Img}}" class="img">   
+            
+            <a href="./artist" name="group" value="{{.ArtistName}}">
+                <button name="group" value="{{.ArtistName}}" >More info...</button>
+            </a>
+        </form>
+    </div>
+    {{end}}
+</main>
+{{ end }}

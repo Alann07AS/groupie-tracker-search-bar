@@ -1,0 +1,32 @@
+{{ template "base" .}}
+
+{{ define "content" }}
+<main id="artist">
+    <form id="back" action="/" method="POST">
+        <button action="/">Back</button>
+    </form>
+        <div class="container ">
+            <h3>{{.ArtistName}}</h3>    
+            <img src="{{.Img}}" class="img">
+            <ul>
+                {{range .Members}}
+                    <li>{{ . }}</li>
+                {{ end }}
+            </ul>
+        </div>
+    <label>Creation Date: {{.CreationDate}}</label>
+    <label>First Album: {{.FirstAlbum}}</label>
+    <ul>
+        {{ range $i, $test := .Relation.DatesLocations}}
+        <li>
+            {{ $i }}
+            <ul>
+                {{ range $test}}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ul>
+        </li>
+        {{ end }}
+    </ul>
+</main>
+{{ end }}

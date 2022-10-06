@@ -1,0 +1,13 @@
+{{ template "adminBase" . }}
+
+{{ define "contentAdmin" }}
+    <main>
+        {{ .Name }}
+        <label>ADMIN PAGE</label>
+        <form action="/admin" method="GET">
+            <button name="bt" value="restartServer">Restart All Server Prog</button>
+            <button name="bt" value="shutdownServer">Shutdown Server</button>
+        </form>
+        
+    </main>
+{{ end }}
