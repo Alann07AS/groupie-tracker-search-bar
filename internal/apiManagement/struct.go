@@ -2,10 +2,11 @@ package apimanagement
 
 import (
 	"encoding/json"
-	"gt-alann/config"
 	"io"
 	"log"
 	"net/http"
+
+	"gt-alann/config"
 )
 
 // init API________
@@ -26,6 +27,11 @@ type GroupiApi struct {
 
 // get Essential info
 type ArtistsSimpleApi struct {
+	Artists []Artist
+	Bar     BarData
+}
+
+type Artist struct {
 	Id         int    `json:"id"`
 	Img        string `json:"image"`
 	ArtistName string `json:"name"`
@@ -45,6 +51,27 @@ type AllInfoArtist struct {
 type Relation struct {
 	Id             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
+}
+
+type BarData struct {
+	Artist_BandName map[string][]int
+	Members         map[string][]int
+	Locations       map[string][]int
+	FirstAlbum_Date map[string][]int
+	Creation_Date   map[string][]int
+}
+
+type BarArtistsData struct {
+	Id           int      `json:"id"`
+	ArtistName   string   `json:"name"`
+	Members      []string `json:"members"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
+}
+
+type Locations struct {
+	Id        int      `json:"id"`
+	Locations []string `json:"locations"`
 }
 
 func er(err error) {

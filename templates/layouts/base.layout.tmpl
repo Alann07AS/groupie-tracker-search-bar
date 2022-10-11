@@ -17,11 +17,14 @@
 </head>
 <body>
 
-    {{ block "content" . }}
+        {{ block "bar" . }}
+    
+        {{ end }}
 
-    {{ end }}
-
-    <footer>
+        {{ block "content" . }}
+    
+        {{ end }}
+        <footer>
         <!-- <img src="../../static/img/chat.jpg" alt="" style="image-orientation:revert;"> -->
     </footer>
 </body>

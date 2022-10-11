@@ -1,12 +1,13 @@
 package main
 
 import (
+	"log"
+	"net/http"
+
 	"gt-alann/config"
 	apimanagement "gt-alann/internal/apiManagement"
 	"gt-alann/internal/handlers"
 	"gt-alann/internal/serverManagement"
-	"log"
-	"net/http"
 )
 
 func main() {
@@ -24,9 +25,9 @@ func main() {
 		appConfig.Port = ":8080"
 		appConfig.Api = "https://groupietrackers.herokuapp.com/api"
 	}
-	apimanagement.ConfigApi()
 	handlers.ConfigHandle()
-
+	go apimanagement.ReadEssentialAPI(10)
+	apimanagement.WaitForReady()
 	log.Println("Server start on http://localhost" + appConfig.Port + "/")
 	serveur := http.Server{Addr: appConfig.Port}
 	go serveur.ListenAndServe()

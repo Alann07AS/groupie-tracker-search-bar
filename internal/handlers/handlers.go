@@ -2,12 +2,13 @@ package handlers
 
 import (
 	"fmt"
-	"gt-alann/config"
-	apimanagement "gt-alann/internal/apiManagement"
-	"gt-alann/internal/serverManagement"
 	"html/template"
 	"net/http"
 	"path/filepath"
+
+	"gt-alann/config"
+	apimanagement "gt-alann/internal/apiManagement"
+	"gt-alann/internal/serverManagement"
 )
 
 var appConfig *config.Config
@@ -20,13 +21,25 @@ func ConfigHandle() {
 func HomeHandle(w http.ResponseWriter, r *http.Request) {
 	renderTmpl(w, "allArtists", nil)
 }
+
 func AllArtistsHandle(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.Error(w, "404 ERROR, page not found.", http.StatusNotFound)
 		return
 	}
-	renderTmpl(w, "allArtists", apimanagement.GetAllArtistsSimpleApi())
+	r.ParseForm()
+	valueSearch := r.FormValue("search")
+	if valueSearch == "" {
+		renderTmpl(w, "allArtists", apimanagement.GetAllArtistsSimpleApi())
+	} else {
+		if list := apimanagement.GetIdSearch(valueSearch); list != nil {
+			renderTmpl(w, "allArtists", apimanagement.GetNewSliceByIdArtistsSimpleApi(list))
+		} else {
+			fmt.Fprint(w, "bad search")
+		}
+	}
 }
+
 func ArtistHandle(w http.ResponseWriter, r *http.Request) {
 	id := 0
 	err := r.ParseForm()
@@ -41,6 +54,7 @@ func ArtistHandle(w http.ResponseWriter, r *http.Request) {
 	}
 	renderTmpl(w, "artist", apimanagement.GetAllInfoArtists(id))
 }
+
 func AdminHandle(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	serverManagement.ServeurAction(r.FormValue("bt"))
@@ -61,7 +75,6 @@ func renderTmpl(w http.ResponseWriter, tmplName string, data any) {
 }
 
 func CreateTemplateCache() (map[string]*template.Template, error) {
-
 	cache := make(map[string]*template.Template)
 	pages, err := filepath.Glob("templates/*.page.tmpl")
 	if err != nil {
@@ -72,7 +85,6 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		tmpl := template.Must(template.ParseFiles(eachPage))
 
 		layouts, err := filepath.Glob("templates/layouts/*.layout.tmpl")
-
 		if err != nil {
 			return cache, err
 		}

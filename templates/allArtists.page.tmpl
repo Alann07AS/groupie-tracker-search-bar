@@ -2,18 +2,46 @@
 
 {{ define "content" }}
 
-<main id="artist">
-    {{range .}}
-    <div class="artists">
-        <form id="{{.Id}}" action="artist" method="GET">
-            <h3>{{.ArtistName}}</h3>     
-            <img src="{{.Img}}" class="img">   
-            
-            <a href="./artist" name="group" value="{{.ArtistName}}">
-                <button name="group" value="{{.ArtistName}}" >More info...</button>
-            </a>
-        </form>
-    </div>
-    {{end}}
-</main>
+
+<div class="artists">
+    <form id="0" action="artist" method="GET">
+        {{range .Artists}}
+        <h3>{{.ArtistName}}</h3>     
+        <img src="{{.Img}}" class="img">   
+        <a href="./artist" name="group" value="{{.ArtistName}}">
+            <button name="group" value="{{.ArtistName}}" >More info...</button>
+        </a>
+        {{end}}
+    </form>
+</div>
+
+
+{{ end }}
+
+{{ define "bar" }}
+
+<div>
+    <form action="/" method="get">
+        <input type="search" list="search-input" placeholder="What are you looking for?" name="search" value="" id="site-search">
+        <button type="submit" value="search"><i>search</i></button>
+        <datalist id="search-input">
+            {{ range $i, $test := .Bar.Artist_BandName }}
+            <option>{{ $i }} - Artist_BandName</option>
+            {{ end }}
+            {{ range $i, $test := .Bar.Members }}
+            <option>{{ $i }} - Members</option>
+            {{ end }}
+            {{ range $i, $test := .Bar.Locations }}
+            <option>{{ $i }} - Locations</option>
+            {{ end }}
+            {{ range $i, $test := .Bar.FirstAlbum_Date }}
+            <option>{{ $i }} - FirstAlbum_Date</option>
+            {{ end }}
+            {{ range $i, $test := .Bar.Creation_Date }}
+            <option>{{ $i }} - Creation_Date</option>
+            {{ end }}
+        </datalist>
+    </form>
+</div>
+
 {{ end }}
