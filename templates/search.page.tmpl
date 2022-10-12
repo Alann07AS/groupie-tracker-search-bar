@@ -1,0 +1,25 @@
+{{ template "base" . }}
+
+{{ define "content" }}
+
+<form action="/" method="get">
+    <button type="submit">Back</button>
+</form>
+
+
+<div class="artists" >
+    <form id="0" action="artist" method="GET" style="flex-direction: column;">
+    {{range .Artists}}
+    <div>
+        <h3>{{.ArtistName}}</h3>     
+        <img src="{{.Img}}" class="img">   
+        <a href="./artist" name="group" value="{{.ArtistName}}">
+            <button name="group" value="{{.ArtistName}}" >More info...</button>
+        </a>
+    </div>
+    {{end}}
+    </form>
+</div>
+
+
+{{ end }}

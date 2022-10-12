@@ -1,6 +1,7 @@
 package apimanagement
 
 import (
+	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -20,6 +21,7 @@ func WaitForReady() {
 // referesh data from API every n minute, must be invocate in new Goroutine !!
 func ReadEssentialAPI(min time.Duration) {
 	for {
+		log.Println("APIdata Load...(refresh:", dataReady, ")")
 		dataReady = false
 		ConfigApi()
 		GetAllArtistsSimpleApi()
@@ -71,17 +73,19 @@ func GetIdSearch(s string) []int {
 	const key = 1
 	const value = 0
 	searchTable := strings.Split(s, " - ")
-	switch searchTable[key] {
-	case "FirstAlbum_Date":
-		return st.Bar.FirstAlbum_Date[searchTable[value]]
-	case "Artist_BandName":
-		return st.Bar.Artist_BandName[searchTable[value]]
-	case "Creation_Date":
-		return st.Bar.Creation_Date[searchTable[value]]
-	case "Locations":
-		return st.Bar.Locations[searchTable[value]]
-	case "Members":
-		return st.Bar.Members[searchTable[value]]
+	if len(searchTable) >= 2 {
+		switch searchTable[key] {
+		case "FirstAlbum_Date":
+			return st.Bar.FirstAlbum_Date[searchTable[value]]
+		case "Artist_BandName":
+			return st.Bar.Artist_BandName[searchTable[value]]
+		case "Creation_Date":
+			return st.Bar.Creation_Date[searchTable[value]]
+		case "Locations":
+			return st.Bar.Locations[searchTable[value]]
+		case "Members":
+			return st.Bar.Members[searchTable[value]]
+		}
 	}
 	return []int{}
 }

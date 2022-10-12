@@ -32,8 +32,8 @@ func AllArtistsHandle(w http.ResponseWriter, r *http.Request) {
 	if valueSearch == "" {
 		renderTmpl(w, "allArtists", apimanagement.GetAllArtistsSimpleApi())
 	} else {
-		if list := apimanagement.GetIdSearch(valueSearch); list != nil {
-			renderTmpl(w, "allArtists", apimanagement.GetNewSliceByIdArtistsSimpleApi(list))
+		if list := apimanagement.GetIdSearch(valueSearch); len(list) != 0 {
+			renderTmpl(w, "search", apimanagement.GetNewSliceByIdArtistsSimpleApi(list))
 		} else {
 			fmt.Fprint(w, "bad search")
 		}

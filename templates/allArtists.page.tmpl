@@ -7,7 +7,7 @@
     <form id="0" action="artist" method="GET">
         {{range .Artists}}
         <h3>{{.ArtistName}}</h3>     
-        <img src="{{.Img}}" class="img">   
+        <img src="{{.Img}}" class="img" loading="lazy">   
         <a href="./artist" name="group" value="{{.ArtistName}}">
             <button name="group" value="{{.ArtistName}}" >More info...</button>
         </a>
@@ -22,8 +22,8 @@
 
 <div>
     <form action="/" method="get">
-        <input type="search" list="search-input" placeholder="What are you looking for?" name="search" value="" id="site-search">
-        <button type="submit" value="search"><i>search</i></button>
+        <input type="search" list="search-input" placeholder="What are you looking for?" name="search" value="" id="site-search" autocomplete="off">
+        <button type="submit" value="search" ><i>search</i></button>
         <datalist id="search-input">
             {{ range $i, $test := .Bar.Artist_BandName }}
             <option>{{ $i }} - Artist_BandName</option>

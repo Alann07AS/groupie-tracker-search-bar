@@ -26,7 +26,7 @@ func main() {
 		appConfig.Api = "https://groupietrackers.herokuapp.com/api"
 	}
 	handlers.ConfigHandle()
-	go apimanagement.ReadEssentialAPI(10)
+	go apimanagement.ReadEssentialAPI(5)
 	apimanagement.WaitForReady()
 	log.Println("Server start on http://localhost" + appConfig.Port + "/")
 	serveur := http.Server{Addr: appConfig.Port}
