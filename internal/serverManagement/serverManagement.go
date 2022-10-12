@@ -34,6 +34,7 @@ func WaitServerOrder(serveur *http.Server) {
 				os.Stdout.WriteString("1")
 				return
 			case shutdownServer:
+				serveur.Shutdown(context.Background())
 				log.Println("Serveur shutdown")
 				os.Exit(0)
 			}

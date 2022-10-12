@@ -5,7 +5,7 @@ while [ $st ]
 do
 go run cmd/web/server.go = status
 echo $status
-    if [[ '1' = $status ]]; then
+    if [[ 1 = $status ]]; then
         echo "isItTrue"
         continue
     else

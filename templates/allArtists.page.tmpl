@@ -6,11 +6,13 @@
 <div class="artists">
     <form id="0" action="artist" method="GET">
         {{range .Artists}}
-        <h3>{{.ArtistName}}</h3>     
-        <img src="{{.Img}}" class="img" loading="lazy">   
-        <a href="./artist" name="group" value="{{.ArtistName}}">
-            <button name="group" value="{{.ArtistName}}" >More info...</button>
-        </a>
+        <div class="artist">
+            <h3>{{.ArtistName}}</h3>     
+            <img src="{{.Img}}" class="img" loading="lazy">   
+            <a href="./artist" name="group" value="{{.ArtistName}}">
+                <button name="group" value="{{.ArtistName}}" >More info...</button>
+            </a>
+        </div>
         {{end}}
     </form>
 </div>
