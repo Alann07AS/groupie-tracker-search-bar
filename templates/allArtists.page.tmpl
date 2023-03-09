@@ -30,15 +30,19 @@
             {{ range $i, $test := .Bar.Artist_BandName }}
             <option>{{ $i }} - Artist_BandName</option>
             {{ end }}
+
             {{ range $i, $test := .Bar.Members }}
             <option>{{ $i }} - Members</option>
             {{ end }}
-            {{ range $i, $test := .Bar.Locations }}
+
+            {{ range $i, $test := .Bar.Locations }} 
             <option>{{ $i }} - Locations</option>
             {{ end }}
-            {{ range $i, $test := .Bar.FirstAlbum_Date }}
+
+            {{ range $i, $test := .Bar.FirstAlbum_FullDate }}
             <option>{{ $i }} - FirstAlbum_Date</option>
             {{ end }}
+            
             {{ range $i, $test := .Bar.Creation_Date }}
             <option>{{ $i }} - Creation_Date</option>
             {{ end }}
@@ -46,4 +50,55 @@
     </form>
 </div>
 
+{{ end }}
+
+{{ define "filter" }}
+    <div>
+        <form action="/" method="get">
+            <label>Dates minimum de création du groupe</label>
+            <select name="minDateCreation" >
+                {{ range $i, $void := .Bar.Creation_Date}}
+                <option value="{{$i}}">{{$i}}</option>
+                {{ end }}
+            </select>
+            <label>Dates maximum de création du groupe</label>
+            <select name="maxDateCreation" >
+                {{ range $i, $void := .Bar.Creation_Date}}
+                <option value="{{$i}}">{{$i}}</option>
+                {{ end }}
+            </select>
+            <label>Dates minimum de parution du premier album</label>
+            <select name="minDateAlbum" >
+                {{ range $i, $void := .Bar.FirstAlbum_YearDate }}
+                <option value="{{$i}}">{{$i}}</option>
+                {{ end }}
+            </select>
+            <label>Dates maximum de parution du premier album</label>
+            <select name="maxDateAlbum" >
+                {{ range $i, $void := .Bar.FirstAlbum_YearDate }}
+                <option value="{{$i}}">{{$i}}</option>
+                {{ end }}
+            </select>
+            <fieldset>
+                <legend>Choose nb of Members :</legend>
+                    <div>
+                        <label for="any">any</label>
+                        <input type="checkbox" id="any" name="any" checked>
+                    </div>
+                {{ range $i, $void := .Bar.NbMembers }}
+                    <div>
+                        <label for="{{ $i }}">{{ $i }}</label>
+                        <input type="checkbox" id="{{ $i }}" name="{{ $i }}" >
+                    </div>
+                {{ end }}
+            </fieldset>
+            <input type="search" name="locationsFilter" list="locations" placeholder="Select location" autocomplete="off">
+            <datalist id="locations">
+            {{ range $i, $test := .Bar.Locations }}
+            <option>{{ $i }}</option>   
+            {{ end }}
+            </datalist>
+            <button type="submit">filter apply</button>
+        </form>
+    </div>
 {{ end }}

@@ -54,11 +54,13 @@ type Relation struct {
 }
 
 type BarData struct {
-	Artist_BandName map[string][]int
-	Members         map[string][]int
-	Locations       map[string][]int
-	FirstAlbum_Date map[string][]int
-	Creation_Date   map[string][]int
+	Artist_BandName     map[string][]int
+	Members             map[string][]int
+	NbMembers           map[string][]int
+	Locations           map[string][]int
+	FirstAlbum_FullDate map[string][]int
+	FirstAlbum_YearDate map[string][]int
+	Creation_Date       map[string][]int
 }
 
 type BarArtistsData struct {

@@ -28,15 +28,19 @@ func AllArtistsHandle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	r.ParseForm()
-	valueSearch := r.FormValue("search")
-	if valueSearch == "" {
-		renderTmpl(w, "allArtists", apimanagement.GetAllArtistsSimpleApi())
-	} else {
-		if list := apimanagement.GetIdSearch(valueSearch); len(list) != 0 {
-			renderTmpl(w, "search", apimanagement.GetNewSliceByIdArtistsSimpleApi(list))
+	if r.Form.Encode() != "" {
+		if r.Form.Has("search") {
+			valueSearch := r.FormValue("search")
+			if list := apimanagement.GetIdSearch(valueSearch); len(list) != 0 {
+				renderTmpl(w, "search", apimanagement.GetNewSliceByIdArtistsSimpleApi(list))
+			} else {
+				fmt.Fprint(w, "bad search")
+			}
 		} else {
-			fmt.Fprint(w, "bad search")
+			renderTmpl(w, "search", apimanagement.GetNewSliceByIdArtistsSimpleApi(apimanagement.GetAllArtistInFilters(r)))
 		}
+	} else {
+		renderTmpl(w, "allArtists", apimanagement.GetAllArtistsSimpleApi())
 	}
 }
 
@@ -94,6 +98,5 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		}
 		cache[name] = tmpl
 	}
-	fmt.Println(cache)
 	return cache, nil
 }

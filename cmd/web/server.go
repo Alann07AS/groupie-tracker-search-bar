@@ -22,7 +22,7 @@ func main() {
 		log.Fatal(err)
 	} else {
 		appConfig.TemplateCache = templateCache
-		appConfig.Port = ":8080"
+		appConfig.Port = ":8989"
 		appConfig.Api = "https://groupietrackers.herokuapp.com/api"
 	}
 	handlers.ConfigHandle()
